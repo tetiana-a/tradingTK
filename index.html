@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>  © 2025 Tetiana Kotolup © </title>
+  <!-- Новый шрифт -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
+  <div id="particles-js"></div>
+
+  <style>
+
+    #particles-js {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: -1; /* щоб було на фоні */
+  top: 0;
+  left: 0;
+}
+
+    :root {
+      --main-color: gold;
+      --background-color: #000;
+      --accent-color: #222;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Playfair Display', serif;
+      background: linear-gradient(-45deg, var(--background-color), var(--accent-color), var(--background-color), var(--accent-color));
+      background-size: 400% 400%;
+      animation: gradientBG 20s ease infinite;
+      color: #f8f8f8;
+    }
+
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    header {
+      background: var(--background-color);
+      color: var(--main-color);
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 2rem;
+      letter-spacing: 2px;
+      animation: fadeInDown 1.5s ease-out;
+    }
+
+    main {
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
+      animation: fadeInUp 2s ease-out;
+      line-height: 1.6;
+    }
+
+    section {
+      margin-bottom: 3rem;
+    }
+
+    h2 {
+      color: var(--main-color);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+    }
+
+    p, li {
+      font-size: 1rem;
+    }
+
+    button {
+      background: var(--main-color);
+      color: #000;
+      border: none;
+      border-radius: 6px;
+      padding: 0.6rem 1.2rem;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background: #fff59d;
+    }
+
+    select, input[type="email"] {
+      background: var(--accent-color);
+      color: var(--main-color);
+      border: none;
+      padding: 0.5rem;
+      border-radius: 4px;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .lang-select, .music-toggle {
+      position: fixed;
+      top: 10px;
+      z-index: 1000;
+      display: flex;
+      gap: 10px;
+    }
+    .lang-select { right: 10px; }
+    .music-toggle { left: 10px; }
+  .music-toggle button {
+    background: rgba(255, 215, 0, 0.15);
+    color: #ffd700;
+    border: none;
+    backdrop-filter: blur(6px);
+  }
+
+  .lang-select button {
+    background: rgba(255, 215, 0, 0.1); /* ще трохи прозоріше */
+    color: #ffd700;
+    border: none; /* без рамки */
+    backdrop-filter: blur(4px); /* легке розмиття */
+  }
+
+    img {
+      width: 100%;
+      max-width: 700px;
+      border-radius: 8px;
+      border: 1px solid var(--main-color);
+    }
+
+    iframe {
+      width: 100%;
+      height: 500px;
+      border: none;
+      border-radius: 8px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #111;
+      color: var(--main-color);
+      font-size: 0.9rem;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        font-size: 1.5rem;
+      }
+      main {
+        padding: 1rem;
+      }
+      button {
+        width: 100%;
+      }
+    }
+
+    .video-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  margin-bottom: 1rem;
+}
+.video-container iframe {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 8px;
+}
+  </style>
+</head>
+<body>
+<div id="particles-js"></div>
+
+<!-- Управление языком -->
+<div class="lang-select">
+  <select id="languageSwitcher">
+    <option value="ru">Русский</option>
+    <option value="en">English</option>
+    <option value="uk">Українська</option>
+    <option value="cs">Čeština</option>
+    <option value="it">Italiano</option>
+  </select>
+</div>
+<!-- Управление музыкой -->
+<div class="music-toggle">
+  <button id="musicBtn">⏸️ Музыка</button>
+</div>
+
+<!-- Заголовок -->
+<header id="header">📈 Trading: Просто и Профессионально</header>
+
+<!-- Основной контент -->
+<main id="content">
+  <!-- Введение -->
+  <section data-section="intro">
+    <h2>Введение в трейдинг</h2>
+    <p>Трейдинг — это активное участие в финансовых рынках, в процессе которого участник совершает сделки купли и продажи активов, стремясь извлечь прибыль от колебаний цен. Основные рынки для трейдинга включают фондовый рынок (акции), валютный рынок (Forex), рынок криптовалют и товарные биржи. Успешный трейдинг требует как технической подготовки, так и понимания психологии поведения рынка. Трейдинг можно вести вручную или с помощью автоматических стратегий и алгоритмов. Важно понимать, что трейдинг связан с рисками, поэтому обучение и практика играют решающую роль для достижения стабильных результатов.</p>
+  </section>
+  <!-- Технический анализ -->
+  <section data-section="tech_analysis">
+  <h2>Технический анализ</h2>
+  <div class="video-container">
+    <iframe src="https://www.youtube.com/embed/BUCPPCXOHbs" 
+            title="The ONLY Technical Analysis Guide You'll Ever Need"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+    </iframe>
+  </div>
+  <p>Технический анализ — это метод прогнозирования будущего движения цен на основе исторических данных...</p>
+</section>
+  <!-- Фундаментальный анализ -->
+<section data-section="fund_analysis">
+  <h2>Фундаментальный анализ</h2>
+  <div class="video-container">
+    <iframe 
+      src="https://www.youtube.com/embed/hE1hdt0MRdg" 
+      title="Fundamental analysis for beginner traders | Behind the trade"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen>
+    </iframe>
+  </div>
+  <p>Фундаментальный анализ направлен на оценку «внутренней стоимости» актива на основе экономических и финансовых факторов. …</p>
+</section>
+  <!-- Психология трейдинга -->
+  <section data-section="psychology">
+    <h2>Психология трейдинга</h2>
+    <p>Психология в трейдинге играет решающую роль. Даже обладая техническими навыками, трейдер может терпеть убытки из-за эмоций — страха, жадности, нетерпения. Часто новички совершают импульсивные сделки, выходят раньше времени или удерживают убыточные позиции. Основные принципы психологической устойчивости: соблюдать дисциплину, использовать торговый план, принимать убытки как часть процесса. Ведение дневника сделок помогает анализировать свои действия и эмоции. Также важно избегать синдрома переторговки — когда трейдер открывает слишком много сделок без весомых причин.</p>
+  </section>
+  <!-- Управление капиталом -->
+  <section data-section="capital_management">
+    <h2>Управление капиталом</h2>
+    <p>Капитал — это ваш рабочий инструмент. Основное правило мани-менеджмента: не рисковать более чем 1–2% от депозита в одной сделке. Это позволяет выдерживать серию убыточных сделок без полного слива счета. Использование стоп-лосса обязательно. Не стоит усреднять убыточные позиции или увеличивать лот в надежде «отыграться». Также важно соблюдать соотношение риск/прибыль — желательно не менее 1:2. Оптимальный размер позиции рассчитывается исходя из депозита, стоп-лосса и допустимого риска.</p>
+  </section>
+  <!-- Типы стратегий -->
+  <section data-section="strategies">
+    <h2>Типы стратегий</h2>
+    <p>Существует множество торговых стратегий, адаптированных под разные стили и временные интервалы:
+      <ul>
+        <li><strong>Скальпинг</strong> — открытие и закрытие сделок в течение минут, требует высокой концентрации и быстрой реакции.</li>
+        <li><strong>Дейтрейдинг</strong> — внутридневная торговля, позиции закрываются до конца дня.</li>
+        <li><strong>Свинг-трейдинг</strong> — удержание сделок от нескольких дней до недель, основан на техническом и новостном анализе.</li>
+        <li><strong>Инвестирование</strong> — долгосрочное удержание позиций, опирающееся на фундаментальный анализ.</li>
+      </ul>
+      Выбор стратегии зависит от вашего характера, времени и опыта. Главное — соблюдать одну стратегию и не метаться между методами.</p>
+  </section>
+  <!-- Индикаторы -->
+<section data-section="indicators">
+  <h2>Індикатори в технічному аналізі</h2>
+  <div class="video-container">
+    <iframe 
+      src="https://www.youtube.com/embed/Vbaf1I7lFxg" 
+      title="Індикатори технічного аналізу RSI та StochRSI"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen>
+    </iframe>
+  </div>
+  <p>Індикатори допомагають трейдерам приймати рішення на основі статистичних даних. Найпопулярніші:</p>
+  <ul>
+    <li><strong>RSI (Relative Strength Index)</strong> — показує перекупленість/перепроданість.</li>
+    <li><strong>MACD</strong> — оцінює розбіжність ковзних середніх.</li>
+    <li><strong>Ковзні середні</strong> — згладжують ціну для виявлення тренду.</li>
+    <li><strong>Bollinger Bands</strong> — вимірюють волатильність та потенційні рівні розвороту.</li>
+  </ul>
+  <p>Однак найточніші сигнали з’являються, коли кілька індикаторів підтверджують одне одного.</p>
+</section>
+  <!-- Типичные ошибки новичков -->
+  <section data-section="common_mistakes">
+    <h2>Типичные ошибки новичков</h2>
+    <p>Многие новички совершают одни и те же ошибки, из-за которых теряют деньги:
+      <ul>
+        <li>Отсутствие торгового плана и дисциплины.</li>
+        <li>Открытие сделок «по наитию» без анализа.</li>
+        <li>Пренебрежение стоп-лоссом.</li>
+        <li>Попытки отыграться после убытка.</li>
+        <li>Слишком большой лот на одну сделку.</li>
+      </ul>
+      Главное — учитесь на чужих ошибках и ведите дневник трейдера, чтобы отслеживать и исправлять собственные.</p>
+  </section>
+  <!-- Тест на подготовленность -->
+  <section data-section="quiz_ready">
+    <h2>Тест: Готовы ли вы к трейдингу?</h2>
+    <p>Ответьте на несколько вопросов, чтобы понять свою стартовую точку:</p>
+    <ol>
+      <li>Понимаете ли вы разницу между фундаментальным и техническим анализом?</li>
+      <li>Умеете ли вы управлять рисками и контролировать эмоции?</li>
+      <li>Есть ли у вас торговый план и цели?</li>
+      <li>Готовы ли вы ежедневно учиться и адаптироваться?</li>
+    </ol>
+    <p>Если вы ответили «да» на большинство вопросов — вы на правильном пути. Если «нет» — начните с повторного изучения базовых разделов.</p>
+  </section>
+  <!-- Интерактивный тест -->
+  <section data-section="interactive_quiz">
+    <h2>🧠 Интерактивный тест: Насколько вы готовы?</h2>
+    <form id="quiz-form" onsubmit="return calculateScore(event)" style="max-width:700px;">
+      <p>1. У вас есть торговый план?</p>
+      <label><input type="radio" name="q1" value="1"> Да</label>
+      <label><input type="radio" name="q1" value="0"> Нет</label><br><br>
+      <p>2. Вы знаете, как работает RSI?</p>
+      <label><input type="radio" name="q2" value="1"> Да</label>
+      <label><input type="radio" name="q2" value="0"> Нет</label><br><br>
+      <p>3. Используете ли вы стоп-лоссы в торговле?</p>
+      <label><input type="radio" name="q3" value="1"> Да</label>
+      <label><input type="radio" name="q3" value="0"> Нет</label><br><br>
+      <p>4. Сколько вы рискуете на одну сделку?</p>
+      <label><input type="radio" name="q4" value="1"> До 2%</label>
+      <label><input type="radio" name="q4" value="0"> Более 2%</label><br><br>
+      <button type="submit">Показать результат</button>
+      <p id="quiz-result"></p>
+    </form>
+  </section>
+  <!-- Выбор брокера -->
+  <section data-section="broker_choice">
+    <h2>Выбор брокера и платформы</h2>
+    <p>Важно выбрать надежного брокера с лицензией, низкими комиссиями и удобной платформой (например, MetaTrader, TradingView, Binance).</p>
+  </section>
+  <!-- Заключение -->
+  <section data-section="conclusion">
+    <h2>Заключение</h2>
+    <p>Трейдинг требует знаний, терпения и самоконтроля. Изучайте, тренируйтесь и развивайтесь — и вы сможете уверенно действовать на финансовых рынках.</p>
+  </section>
+  <!-- Галерея графиков -->
+  <section data-section="gallery">
+    <h2>📷 Галерея графиков</h2>
+    <div class="slider">
+      <img src="https://bidkogan.com/upload/delight.webpconverter/upload/resize_cache/iblock/eda/920_570_2/js7tctx5ubqj3nq970oxvt4zvmm344kz.jpg.webp?169165449539948" alt="Технический анализ" />
+      <img src="https://images.unsplash.com/photo-1590283087342-a29272373305?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Фундаментальный анализ" />
+      <img src="https://images.unsplash.com/photo-1629853315904-dd692e3a1f10?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Индикаторы RSI и MACD" />
+    </div>
+  </section>
+  <!-- TradingView график -->
+  <section data-section="tradingview_chart">
+    <h2>📈 Реальный график TradingView</h2>
+    <p>Ниже вы можете наблюдать за живым графиком валют, криптовалют или акций в реальном времени.</p>
+    <div style="height:500px;">
+      <iframe src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_8ba13&symbol=FX_IDC%3AEURUSD&interval=D&hidesidetoolbar=1&symboledit=1&saveimage=1&toolbarbg=F1F3F6&studies=[]&theme=dark&style=1&timezone=Etc%2FUTC&withdateranges=1&hidevolume=1&allow_symbol_change=1&details=1&calendar=1&hotlist=1&locale=ru" allowtransparency="true" scrolling="no"></iframe>
+    </div>
+  </section>
+  <!-- Подписка -->
+  <section data-section="subscribe">
+    <h2>📬 Подписка на новости</h2>
+    <p>Оставьте свой email, чтобы получать советы по трейдингу и новые уроки:</p>
+    <form id="subscribe-form" action="https://formspree.io/f/your_form_id" method="POST">
+      <input type="email" id="email" name="email" required placeholder="Ваш email" />
+      <button type="submit">Подписаться</button>
+    </form>
+    <p id="subscribeMessage"></p>
+  </section>
+</main>
+
+<!-- Подвал -->
+<footer>
+  © 2025 Tetiana Kotolup © 
+</footer>
+
+<!-- Музыка на фоне -->
+<audio id="bgMusic" loop autoplay>
+  <source src="Alewya – Zuggy (Clapsby Remix).mp3" type="audio/mpeg" />
+  Ваш браузер не підтримує аудіо елемент.
+</audio>
+
+<!-- Скрипты -->
+<script>
+const translations = {
+  ru: {
+    header: '📈 Trading: Просто и Профессионально',
+    intro_h2: 'Введение в трейдинг',
+    intro_p: 'Трейдинг — это активное участие в финансовых рынках, в процессе которого участник совершает сделки купли и продажи активов, стремясь извлечь прибыль от колебаний цен. Основные рынки для трейдинга включают фондовый рынок (акции), валютный рынок (Forex), рынок криптовалют и товарные биржи. Успешный трейдинг требует как технической подготовки, так и понимания психологии поведения рынка. Трейдинг можно вести вручную или с помощью автоматических стратегий и алгоритмов. Важно понимать, что трейдинг связан с рисками, поэтому обучение и практика играют решающую роль для достижения стабильных результатов.',
+    tech_analysis_h2: 'Технический анализ',
+    tech_analysis_p: 'Технический анализ — это метод прогнозирования будущего движения цен на основе исторических данных. Он включает в себя изучение графиков цен, объемов торгов, индикаторов и различных моделей (паттернов), которые формируются на рынке. Основные инструменты технического анализа: японские свечи, уровни поддержки и сопротивления, трендовые линии, индикаторы (например, RSI, MACD, скользящие средние). Технический анализ предполагает, что вся информация уже учтена в цене, а история повторяется. Он особенно эффективен для краткосрочной и среднесрочной торговли.',
+    fund_analysis_h2: 'Фундаментальный анализ',
+    fund_analysis_p: 'Фундаментальный анализ направлен на оценку «внутренней стоимости» актива на основе экономических и финансовых факторов. Он включает изучение новостей, корпоративных отчетов, процентных ставок, инфляции, уровня безработицы и геополитических событий. Для акций важны прибыли компаний, дивиденды, конкуренция, а для валют — экономические показатели стран и действия центральных банков. Такой анализ часто используется инвесторами, которые держат позиции в течение недель, месяцев или даже лет.',
+    psychology_h2: 'Психология трейдинга',
+    psychology_p: 'Психология в трейдинге играет решающую роль. Даже обладая техническими навыками, трейдер может терпеть убытки из-за эмоций — страха, жадности, нетерпения. Часто новички совершают импульсивные сделки, выходят раньше времени или удерживают убыточные позиции. Основные принципы психологической устойчивости: соблюдать дисциплину, использовать торговый план, принимать убытки как часть процесса. Ведение дневника сделок помогает анализировать свои действия и эмоции. Также важно избегать синдрома переторговки — когда трейдер открывает слишком много сделок без весомых причин.',
+    capital_management_h2: 'Управление капиталом',
+    capital_management_p: 'Капитал — это ваш рабочий инструмент. Основное правило мани-менеджмента: не рисковать более чем 1–2% от депозита в одной сделке. Это позволяет выдерживать серию убыточных сделок без полного слива счета. Использование стоп-лосса обязательно. Не стоит усреднять убыточные позиции или увеличивать лот в надежде «отыграться». Также важно соблюдать соотношение риск/прибыль — желательно не менее 1:2. Оптимальный размер позиции рассчитывается исходя из депозита, стоп-лосса и допустимого риска.',
+    strategies_h2: 'Типы стратегий',
+    strategies_p: 'Существует множество торговых стратегий, адаптированных под разные стили и временные интервалы:',
+    strategies_list: [
+      '<strong>Скальпинг</strong> — открытие и закрытие сделок в течение минут, требует высокой концентрации и быстрой реакции.',
+      '<strong>Дейтрейдинг</strong> — внутридневная торговля, позиции закрываются до конца дня.',
+      '<strong>Свинг-трейдинг</strong> — удержание сделок от нескольких дней до недель, основан на техническом и новостном анализе.',
+      '<strong>Инвестирование</strong> — долгосрочное удержание позиций, опирающееся на фундаментальный анализ.'
+    ],
+    strategies_p2: 'Выбор стратегии зависит от вашего характера, времени и опыта. Главное — соблюдать одну стратегию и не метаться между методами.',
+    indicators_h2: 'Индикаторы в техническом анализе',
+    indicators_p: 'Индикаторы помогают трейдерам принимать решения на основе статистических данных. Самые популярные:',
+    indicators_list: [
+      '<strong>RSI (Relative Strength Index)</strong> — показывает перекупленность или перепроданность актива. Значения выше 70 — перекуплен, ниже 30 — перепродан.',
+      '<strong>MACD</strong> — индикатор пересечения скользящих средних, помогает находить моменты входа и выхода из рынка.',
+      '<strong>Bollinger Bands</strong> — отображают волатильность и уровни поддержки/сопротивления. Расширение полос означает рост волатильности.'
+    ],
+    indicators_p2: 'Индикаторы нужно использовать в комплексе, не полагаясь только на один сигнал.',
+    common_mistakes_h2: 'Типичные ошибки новичков',
+    common_mistakes_p: 'Многие новички совершают одни и те же ошибки, из-за которых теряют деньги:',
+    common_mistakes_list: [
+      'Отсутствие торгового плана и дисциплины.',
+      'Открытие сделок «по наитию» без анализа.',
+      'Пренебрежение стоп-лоссом.',
+      'Попытки отыграться после убытка.',
+      'Слишком большой лот на одну сделку.'
+    ],
+    common_mistakes_p2: 'Главный совет: учитесь на чужих ошибках и ведите дневник трейдера, чтобы отслеживать и исправлять собственные.',
+    quiz_ready_h2: 'Тест: Готовы ли вы к трейдингу?',
+    quiz_ready_p: 'Ответьте на несколько вопросов, чтобы понять свою стартовую точку:',
+    quiz_ready_list: [
+      'Понимаете ли вы разницу между фундаментальным и техническим анализом?',
+      'Умеете ли вы управлять рисками и контролировать эмоции?',
+      'Есть ли у вас торговый план и цели?',
+      'Готовы ли вы ежедневно учиться и адаптироваться?'
+    ],
+    quiz_ready_p2: 'Если вы ответили «да» на большинство вопросов — вы на правильном пути. Если «нет» — начните с повторного изучения базовых разделов.',
+    interactive_quiz_h2: '🧠 Интерактивный тест: Насколько вы готовы?',
+    quiz_q1: '1. У вас есть торговый план?',
+    quiz_q2: '2. Вы знаете, как работает RSI?',
+    quiz_q3: '3. Используете ли вы стоп-лоссы в торговле?',
+    quiz_q4: '4. Сколько вы рискуете на одну сделку?',
+    quiz_btn: 'Показать результат',
+    quiz_result_4: 'Вы отлично подготовлены!',
+    quiz_result_2: 'Неплохой старт, но есть над чем работать.',
+    quiz_result_0: 'Рекомендуем изучить больше перед началом торговли.',
+    broker_choice_h2: 'Выбор брокера и платформы',
+    broker_choice_p: 'Важно выбрать надежного брокера с лицензией, низкими комиссиями и удобной платформой (например, MetaTrader, TradingView, Binance).',
+    conclusion_h2: 'Заключение',
+    conclusion_p: 'Трейдинг требует знаний, терпения и самоконтроля. Изучайте, тренируйтесь и развивайтесь — и вы сможете уверенно действовать на финансовых рынках.',
+    gallery_h2: '📷 Галерея графиков',
+    tradingview_chart_h2: '📈 Реальный график TradingView',
+    tradingview_chart_p: 'Ниже вы можете наблюдать за живым графиком валют, криптовалют или акций в реальном времени.',
+    subscribe_h2: '📬 Подписка на новости',
+    subscribe_p: 'Оставьте свой email, чтобы получать советы по трейдингу и новые уроки:',
+    subscribe_email_placeholder: 'Ваш email',
+    subscribe_btn: 'Подписаться',
+    footer: '© 2025 Элегантный Трейдинг. Все права защищены.',
+    music_pause: '⏸️ Музыка',
+    music_play: '▶️ Музыка'
+  },
+  en: {
+    header: '📈 Trading: Simple & Professional',
+    intro_h2: 'Introduction to Trading',
+    intro_p: 'Trading is active participation in financial markets, where a participant buys and sells assets, aiming to profit from price fluctuations. Key markets for trading include the stock market (equities), foreign exchange market (Forex), cryptocurrency market, and commodity exchanges. Successful trading requires both technical preparation and an understanding of market psychology. Trading can be done manually or with automated strategies and algorithms. It is important to understand that trading involves risks, so education and practice play a crucial role in achieving consistent results.',
+    tech_analysis_h2: 'Technical Analysis',
+    tech_analysis_p: 'Technical analysis is a method for forecasting future price movements based on historical data. It involves studying price charts, trading volumes, indicators, and various patterns that form in the market. Key technical analysis tools include Japanese candlesticks, support and resistance levels, trend lines, and indicators (e.g., RSI, MACD, moving averages). Technical analysis assumes that all information is already reflected in the price, and history tends to repeat itself. It is particularly effective for short-term and medium-term trading.',
+    fund_analysis_h2: 'Fundamental Analysis',
+    fund_analysis_p: 'Fundamental analysis aims to assess the "intrinsic value" of an asset based on economic and financial factors. It involves studying news, corporate reports, interest rates, inflation, unemployment levels, and geopolitical events. For stocks, company earnings, dividends, and competition are important, while for currencies, economic indicators of countries and central bank actions are key. This analysis is often used by investors who hold positions for weeks, months, or even years.',
+    psychology_h2: 'Trading Psychology',
+    psychology_p: 'Psychology plays a crucial role in trading. Even with technical skills, a trader can incur losses due to emotions—fear, greed, impatience. Novices often make impulsive trades, exit too early, or hold losing positions. Key principles of psychological resilience include maintaining discipline, using a trading plan, and accepting losses as part of the process. Keeping a trading journal helps analyze actions and emotions. It is also important to avoid overtrading syndrome—when a trader opens too many trades without significant reasons.',
+    capital_management_h2: 'Capital Management',
+    capital_management_p: 'Capital is your working tool. The main rule of money management is not to risk more than 1–2% of your deposit in a single trade. This allows you to withstand a series of losing trades without completely depleting your account. Using a stop-loss is mandatory. Do not average down losing positions or increase your lot size in hopes of "breaking even." It is also important to maintain a risk/reward ratio—preferably at least 1:2. The optimal position size is calculated based on your deposit, stop-loss, and allowable risk.',
+    strategies_h2: 'Types of Strategies',
+    strategies_p: 'There are many trading strategies adapted to different styles and timeframes:',
+    strategies_list: [
+      '<strong>Scalping</strong> — opening and closing trades within minutes, requires high concentration and quick reaction.',
+      '<strong>Day Trading</strong> — intraday trading, positions are closed by the end of the day.',
+      '<strong>Swing Trading</strong> — holding trades for several days to weeks, based on technical and news analysis.',
+      '<strong>Investing</strong> — long-term holding of positions, relying on fundamental analysis.'
+    ],
+    strategies_p2: 'The choice of strategy depends on your character, time, and experience. The main thing is to stick to one strategy and not jump between methods.',
+    indicators_h2: 'Indicators in Technical Analysis',
+    indicators_p: 'Indicators help traders make decisions based on statistical data. The most popular are:',
+    indicators_list: [
+      '<strong>RSI (Relative Strength Index)</strong> — shows overbought or oversold conditions of an asset. Values above 70 are overbought, below 30 are oversold.',
+      '<strong>MACD</strong> — a moving average convergence divergence indicator, helps find market entry and exit points.',
+      '<strong>Bollinger Bands</strong> — display volatility and support/resistance levels. Widening bands indicate increasing volatility.'
+    ],
+    indicators_p2: 'Indicators should be used in combination, not relying solely on one signal.',
+    common_mistakes_h2: 'Common Beginner Mistakes',
+    common_mistakes_p: 'Many beginners make the same mistakes that cause them to lose money:',
+    common_mistakes_list: [
+      'Lack of a trading plan and discipline.',
+      'Opening trades "by intuition" without analysis.',
+      'Neglecting stop-loss.',
+      'Attempts to recover losses after a trade.',
+      'Too large a lot for one trade.'
+    ],
+    common_mistakes_p2: 'The main advice: learn from others\' mistakes and keep a trader\'s journal to track and correct your own.',
+    quiz_ready_h2: 'Quiz: Are you ready for trading?',
+    quiz_ready_p: 'Answer a few questions to understand your starting point:',
+    quiz_ready_list: [
+      'Do you understand the difference between fundamental and technical analysis?',
+      'Do you know how to manage risks and control emotions?',
+      'Do you have a trading plan and goals?',
+      'Are you ready to learn and adapt daily?'
+    ],
+    quiz_ready_p2: 'If you answered "yes" to most questions—you are on the right track. If "no"—start by re-studying the basic sections.',
+    interactive_quiz_h2: '🧠 Interactive Quiz: How ready are you?',
+    quiz_q1: '1. Do you have a trading plan?',
+    quiz_q2: '2. Do you know how RSI works?',
+    quiz_q3: '3. Do you use stop-losses in trading?',
+    quiz_q4: '4. How much do you risk per trade?',
+    quiz_btn: 'Show Result',
+    quiz_result_4: 'You are excellently prepared!',
+    quiz_result_2: 'Not a bad start, but there\'s work to be done.',
+    quiz_result_0: 'We recommend studying more before starting to trade.',
+    broker_choice_h2: 'Choosing a Broker and Platform',
+    broker_choice_p: 'It is important to choose a reliable broker with a license, low commissions, and a convenient platform (e.g., MetaTrader, TradingView, Binance).',
+    conclusion_h2: 'Conclusion',
+    conclusion_p: 'Trading requires knowledge, patience, and self-control. Learn, practice, and develop—and you will be able to act confidently in financial markets.',
+    gallery_h2: '📷 Gallery of Charts',
+    tradingview_chart_h2: '📈 Real-time TradingView Chart',
+    tradingview_chart_p: 'Below you can observe a live chart of currencies, cryptocurrencies, or stocks in real time.',
+    subscribe_h2: '📬 Subscribe to News',
+    subscribe_p: 'Leave your email to receive trading tips and new lessons:',
+    subscribe_email_placeholder: 'Your email',
+    subscribe_btn: 'Subscribe',
+    footer: '© 2025 Elegant Trading. All rights reserved.',
+    music_pause: '⏸️ Music',
+    music_play: '▶️ Music'
+  },
+  uk: {
+    header: '📈 Трейдинг: Просто та Професійно',
+    intro_h2: 'Вступ до трейдингу',
+    intro_p: 'Трейдинг — це активна участь у фінансових ринках, в процесі якої учасник здійснює операції купівлі та продажу активів, прагнучи отримати прибуток від коливань цін. Основні ринки для трейдингу включають фондовий ринок (акції), валютний ринок (Forex), ринок криптовалют та товарні біржі. Успішний трейдинг вимагає як технічної підготовки, так і розуміння психології поведінки ринку. Трейдинг можна вести вручну або за допомогою автоматичних стратегій та алгоритмів. Важливо розуміти, що трейдинг пов\'язаний з ризиками, тому навчання та практика відіграють вирішальну роль для досягнення стабільних результатів.',
+    tech_analysis_h2: 'Технічний аналіз',
+    tech_analysis_p: 'Технічний аналіз — це метод прогнозування майбутнього руху цін на основі історичних даних. Він включає в себе вивчення графіків цін, обсягів торгів, індикаторів та різних моделей (патернів), які формуються на ринку. Основні інструменти технічної аналізу: японські свічки, рівні підтримки та опору, трендові лінії, індикатори (наприклад, RSI, MACD, ковзні середні). Технічний аналіз передбачає, що вся інформація вже врахована в ціні, а історія повторюється. Він особливо ефективний для короткострокової та середньострокової торгівлі.',
+    fund_analysis_h2: 'Фундаментальний аналіз',
+    fund_analysis_p: 'Фундаментальний аналіз спрямований на оцінку «внутрішньої вартості» активу на основі економічних та фінансових факторів. Він включає вивчення новин, корпоративних звітів, процентних ставок, інфляції, рівня безробіття та геополітичних подій. Для акцій важливі прибутки компаній, дивіденди, конкуренція, а для валют — економічні показники країн та дії центральних банків. Такий аналіз часто використовується інвесторами, які тримають позиції протягом тижнів, місяців або навіть років.',
+    psychology_h2: 'Психологія трейдингу',
+    psychology_p: 'Психологія в трейдингу відіграє вирішальну роль. Навіть володіючи технічними навичками, трейдер може зазнавати збитків через емоції — страх, жадібність, нетерпіння. Часто новачки здійснюють імпульсивні угоди, виходять завчасно або утримують збиткові позиції. Основні принципи психологічної стійкості: дотримуватися дисципліни, використовувати торговий план, приймати збитки як частину процесу. Ведення щоденника угод допомагає аналізувати свої дії та емоції. Також важливо уникати синдрому переторгівлі — коли трейдер відкриває занадто багато угод без вагомих причин.',
+    capital_management_h2: 'Управління капіталом',
+    capital_management_p: 'Капітал — це ваш робочий інструмент. Основне правило мані-менеджменту: не ризикувати більше ніж 1–2% від депозиту в одній угоді. Це дозволяє витримувати серію збиткових угод без повного зливу рахунку. Використання стоп-лосу обов\'язкове. Не варто усереднювати збиткові позиції або збільшувати лот в надії «відігратися». Також важливо дотримуватися співвідношення ризик/прибуток — бажано не менше 1:2. Оптимальний розмір позиції розраховується виходячи з депозиту, стоп-лосу та допустимого ризику.',
+    strategies_h2: 'Типи стратегій',
+    strategies_p: 'Існує безліч торгових стратегій, адаптованих під різні стилі та часові інтервали:',
+    strategies_list: [
+      '<strong>Скальпінг</strong> — відкриття та закриття угод протягом хвилин, вимагає високої концентрації та швидкої реакції.',
+      '<strong>День трейдинг</strong> — внутрішньоденна торгівля, позиції закриваються до кінця дня.',
+      '<strong>Свінг-трейдинг</strong> — утримання угод від кількох днів до тижнів, заснований на технічному та новинному аналізі.',
+      '<strong>Інвестування</strong> — довгострокове утримання позицій, що спирається на фундаментальний аналіз.'
+    ],
+    strategies_p2: 'Вибір стратегії залежить від вашого характеру, часу та досвіду. Головне — дотримуватися однієї стратегії та не метатися між методами.',
+    indicators_h2: 'Індикатори в технічному аналізі',
+    indicators_p: 'Індикатори допомагають трейдерам приймати рішення на основі статистичних даних. Найпопулярніші:',
+    indicators_list: [
+      '<strong>RSI (Relative Strength Index)</strong> — показує перекупленість або перепроданість активу. Значення вище 70 — перекуплений, нижче 30 — перепроданий.',
+      '<strong>MACD</strong> — індикатор перетину ковзних середніх, допомагає знаходити моменти входу та виходу з ринку.',
+      '<strong>Bollinger Bands</strong> — відображають волатильність та рівні підтримки/опору. Розширення смуг означає зростання волатильності.'
+    ],
+    indicators_p2: 'Індикатори потрібно використовувати в комплексі, не покладаючись тільки на один сигнал.',
+    common_mistakes_h2: 'Типові помилки новачків',
+    common_mistakes_p: 'Багато новачків роблять одні й ті ж помилки, kvиі втрачають гроші:',
+    common_mistakes_list: [
+      'Відсутність торгового плану та дисципліни.',
+      'Открытие сделок «по наитию» без анализа.',
+      'Зневага стоп-лосом.',
+      'Спроби відігратися після збитку.',
+      'Занадто великий лот на одну угоду.'
+    ],
+    common_mistakes_p2: 'Головна порада: учіться на чужих помилках і ведіть щоденник трейдера, щоб відстежувати і виправляти власні.',
+    quiz_ready_h2: 'Тест: Чи готові ви до трейдингу?',
+    quiz_ready_p: 'Відповідьте на кілька запитань, щоб зрозуміти свою стартову точку:',
+    quiz_ready_list: [
+      'Чи розумієте ви різницю між фундаментальним та технічним аналізом?',
+      'Чи вмієте ви управляти ризиками та контролювати емоції?',
+      'Чи є у вас торговий план і цілі?',
+      'Чи готові ви щодня вчитися та адаптуватися?'
+    ],
+    quiz_ready_p2: 'Якщо ви відповіли «так» на більшість запитань — ви на правильному шляху. Якщо «ні» — почніть з повторного вивчення базових розділів.',
+    interactive_quiz_h2: '🧠 Інтерактивний тест: Наскільки ви готові?',
+    quiz_q1: '1. У вас є торговий план?',
+    quiz_q2: '2. Чи знаєте ви, як працює RSI?',
+    quiz_q3: '3. Чи використовуєте ви стоп-лоси в торгівлі?',
+    quiz_q4: '4. Скільки ви ризикуєте на одну угоду?',
+    quiz_btn: 'Показати результат',
+    quiz_result_4: 'Ви чудово підготовлені!',
+    quiz_result_2: 'Непоганий старт, але є над чим працювати.',
+    quiz_result_0: 'Рекомендуємо вивчити більше перед початком торгівлі.',
+    broker_choice_h2: 'Вибір брокера та платформи',
+    broker_choice_p: 'Важливо обрати надійного брокера з ліцензією, низькими комісіями та зручною платформою (наприклад, MetaTrader, TradingView, Binance).',
+    conclusion_h2: 'Висновок',
+    conclusion_p: 'Трейдинг вимагає знань, терпіння та самоконтролю. Вивчайте, тренуйтеся та розвивайтеся — і ви зможете впевнено діяти на фінансових ринках.',
+    gallery_h2: '📷 Галерея графіків',
+    tradingview_chart_h2: '📈 Реальний графік TradingView',
+    tradingview_chart_p: 'Нижче ви можете спостерігати за живим графіком валют, криптовалют або акцій в реальному часі.',
+    subscribe_h2: '📬 Підписка на новини',
+    subscribe_p: 'Залиште свій email, щоб отримувати поради по трейдингу та нові уроки:',
+    subscribe_email_placeholder: 'Ваш email',
+    subscribe_btn: 'Підписатися',
+    footer: '© 2025 Елегантний Трейдинг. Усі права захищено.',
+    music_pause: '⏸️ Музика',
+    music_play: '▶️ Музика'
+  },
+  cs: {
+    header: '📈 Trading: Jednoduché a profesionální',
+    intro_h2: 'Úvod do obchodování',
+    intro_p: 'Obchodování je aktivní účast na finančních trzích, při které účastník provádí nákupní a prodejní transakce s aktivy, s cílem profitovat z kolísání cen. Hlavní trhy pro obchodování zahrnují akciový trh (akcie), devizový trh (Forex), trh s kryptoměnami a komoditní burzy. Úspěšné obchodování vyžaduje jak technickou přípravu, tak pochopení psychologie tržního chování. Obchodování lze provádět ručně nebo pomocí automatických strategií a algoritmů. Je důležité pochopit, že obchodování je spojeno s riziky, proto hraje vzdělávání a praxe rozhodující roli pro dosažení stabilních výsledků.',
+    tech_analysis_h2: 'Technická analýza',
+    tech_analysis_p: 'Technická analýza je metoda předpovídání budoucího pohybu cen na základě historických dat. Zahrnuje studium cenových grafů, objemů obchodování, indikátorů a různých vzorů (patternů), které se na trhu tvoří. Mezi hlavní nástroje technické analýzy patří: japonské svíce, úrovně podpory a odporu, trendové linie, indikátory (například RSI, MACD, klouzavé průměry). Technická analýza předpokládá, že veškeré informace jsou již započítány v ceně a historie se opakuje. Je obzvláště účinná pro krátkodobé a střednědobé obchodování.',
+    fund_analysis_h2: 'Fundamentální analýza',
+    fund_analysis_p: 'Fundamentální analýza se zaměřuje na hodnocení „vnitřní hodnoty“ aktiva na základě ekonomických a finančních faktorů. Zahrnuje studium zpráv, firemních zpráv, úrokových sazeb, inflace, míry nezaměstnanosti a geopolitických událostí. Pro akcie jsou důležité zisky společností, dividendy, konkurence a pro měny – ekonomické ukazatele zemí a kroky centrálních bank. Tato analýza je často používána investory, kteří drží pozice po dobu týdnů, měsíců nebo dokonce let.',
+    psychology_h2: 'Psychologie obchodování',
+    psychology_p: 'Psychologie hraje v obchodování klíčovou roli. I když má obchodník technické dovednosti, může utrpět ztráty kvůli emocím – strachu, chamtivosti, netrpělivosti. Často začátečníci provádějí impulzivní obchody, vystupují příliš brzy nebo drží ztrátové pozice. Hlavní principy psychologické stability: dodržovat disciplínu, používat obchodní plán, přijímat ztráty jako součást procesu. Vedení deníku obchodů pomáhá analyzovat své činy a emoce. Důležité je také vyhnout se syndromu přetížení – kdy obchodník otevírá příliš mnoho obchodů bez pádných důvodů.',
+    capital_management_h2: 'Řízení kapitálu',
+    capital_management_p: 'Kapitál je váš pracovní nástroj. Základním pravidlem money managementu je neriskovat více než 1–2 % z vkladu v jedné transakci. To umožňuje vydržet sérii ztrátových obchodů bez úplného vyčerpání účtu. Použití stop-lossu je povinné. Neměli byste mediaovat ztrátové pozice ani zvětšovat lot velikost v naději na „návrat“. Je také důležité udržovat poměr rizika/zisku — minimálně 1:2. Optimální velikost pozice se vypočítává na základě vkladu, stop-lossu a povoleného rizika.',
+    strategies_h2: 'Typy strategií',
+    strategies_p: 'Existuje mnoho obchodních strategií, přizpůsobených různým stylům a časovým intervalům:',
+    strategies_list: [
+      '<strong>Skalping</strong> — otevírání a zavírání obchodů během několika minut, vyžaduje vysokou koncentraci a rychlou reakci.',
+      '<strong>Denní obchodování</strong> — intradenní obchodování, pozice se uzavírají do konce dne.',
+      '<strong>Swingové obchodování</strong> — držení obchodů po dobu několika dnů až týdnů, založené na technické a zpravodajské analýze.',
+      '<strong>Investování</strong> — dlouhodobé držení pozic, spoléhající se na fundamentální analýzu.'
+    ],
+    strategies_p2: 'Volba strategie závisí na vaší povaze, čase a zkušenostech. Hlavní je dodržovat jednu strategii a neskákat mezi metodami.',
+    indicators_h2: 'Indikátory v technické analýze',
+    indicators_p: 'Indikátory pomáhají obchodníkům přijímat rozhodnutí na základě statistických dat. Nejpopulárnější jsou:',
+    indicators_list: [
+      '<strong>RSI (Relative Strength Index)</strong> — ukazuje překoupenost nebo přeprodanost aktiva. Hodnoty nad 70 – překoupeno, pod 30 – přeprodáno.',
+      '<strong>MACD</strong> — indikátor křížení klouzavých průměrů, pomáhá najít okamžiky vstupu a výstupu z trhu.',
+      '<strong>Bollingerova pásma</strong> — zobrazují volatilitu a úrovně podpory/odporu. Rozšíření pásem znamená nárůst volatility.'
+    ],
+    indicators_p2: 'Indikátory je třeba používat komplexně, nespoléhat se pouze na jeden signál.',
+    common_mistakes_h2: 'Typické chyby začátečníků',
+    common_mistakes_p: 'Mnoho začátečníků dělá stejné chyby, kvůli kterým ztrácejí peníze:',
+    common_mistakes_list: [
+      'Nedostatek obchodního plánu a disciplíny.',
+      'Otevírání obchodů „podle intuice“ bez analýzy.',
+      'Zanedbání stop-lossu.',
+      'Pokusy o „odčinění“ po ztrátě.',
+      'Příliš velký lot na jeden obchod.'
+    ],
+    common_mistakes_p2: 'Hlavní rada: učte se z chyb jiných a veďte si obchodní deník, abyste mohli sledovat a napravovat své vlastní chyby.',
+    quiz_ready_h2: 'Test: Jste připraveni na obchodování?',
+    quiz_ready_p: 'Odpovězte na několik otázek, abyste pochopili svůj výchozí bod:',
+    quiz_ready_list: [
+      'Rozumíte rozdílu mezi fundamentální a technickou analýzou?',
+      'Umíte řídit rizika a ovládat emoce?',
+      'Máte obchodní plán a cíle?',
+      'Jste připraveni se denně učit a přizpůsobovat?'
+    ],
+    quiz_ready_p2: 'Pokud jste na většinu otázek odpověděli „ano“ – jste na správné cestě. Pokud „ne“ – začněte znovu studovat základní sekce.',
+    interactive_quiz_h2: '🧠 Interaktivní test: Jak jste připraveni?',
+    quiz_q1: '1. Máte obchodní plán?',
+    quiz_q2: '2. Víte, jak funguje RSI?',
+    quiz_q3: '3. Uplatňujete stop-lossy v obchodování?',
+    quiz_q4: '4. Kolik riskujete na jeden obchod?',
+    quiz_btn: 'Zobrazit výsledek',
+    quiz_result_4: 'Jste výborně připraveni!',
+    quiz_result_2: 'Není to špatný začátek, ale je na čem pracovat.',
+    quiz_result_0: 'Doporučujeme studovat více před zahájením obchodování.',
+    broker_choice_h2: 'Výběr brokera a platformy',
+    broker_choice_p: 'Je důležité zvolit spolehlivého brokera s licencí, nízkými poplatky a pohodlnou platformou (například MetaTrader, TradingView, Binance).',
+    conclusion_h2: 'Závěr',
+    conclusion_p: 'Obchodování vyžaduje znalosti, trpělivost a sebekontrolu. Studujte, cvičte a rozvíjejte se – a budete schopni sebevědomě působit na finančních trzích.',
+    gallery_h2: '📷 Galerie grafů',
+    tradingview_chart_h2: '📈 Živý graf TradingView',
+    tradingview_chart_p: 'Níže můžete sledovat živý graf měn, kryptoměn nebo akcií v reálném čase.',
+    subscribe_h2: '📬 Přihlaste se k odběru novinek',
+    subscribe_p: 'Zanechte svůj email, abyste dostávali tipy pro obchodování a nové lekce:',
+    subscribe_email_placeholder: 'Váš email',
+    subscribe_btn: 'Přihlásit se',
+    footer: '© 2025 Elegantní obchodování. Všechna práva vyhrazena.',
+    music_pause: '⏸️ Hudba',
+    music_play: '▶️ Hudba'
+  },
+  it: {
+    header: '📈 Trading: Semplice e Professionale',
+    intro_h2: 'Introduzione al Trading',
+    intro_p: 'Il trading è una partecipazione attiva ai mercati finanziari, durante la quale un partecipante effettua transazioni di acquisto e vendita di asset, cercando di trarre profitto dalle fluttuazioni dei prezzi. I principali mercati per il trading includono il mercato azionario (azioni), il mercato dei cambi (Forex), il mercato delle criptovalute e le borse merci. Un trading di successo richiede sia preparazione tecnica che comprensione della psicologia del comportamento del mercato. Il trading può essere condotto manualmente o con l\'aiuto di strategie e algoritmi automatici. È importante capire che il trading è associato a rischi, quindi l\'apprendimento e la pratica giocano un ruolo cruciale per il raggiungimento di risultati stabili.',
+    tech_analysis_h2: 'Analisi Tecnica',
+    tech_analysis_p: 'L\'analisi tecnica è un metodo per prevedere il futuro movimento dei prezzi basato su dati storici. Include lo studio di grafici dei prezzi, volumi di trading, indicatori e vari modelli (pattern) che si formano sul mercato. Gli strumenti principali dell\'analisi tecnica: candele giapponesi, livelli di supporto e resistenza, linee di tendenza, indicatori (ad esempio, RSI, MACD, medie mobili). L\'analisi tecnica presuppone che tutte le informazioni siano già state prese in considerazione nel prezzo e che la storia si ripeta. È particolarmente efficace per il trading a breve e medio termine.',
+    fund_analysis_h2: 'Analisi Fondamentale',
+    fund_analysis_p: 'L\'analisi fondamentale mira a valutare il «valore intrinseco» di un asset basandosi su fattori economici e finanziari. Include lo studio di notizie, report aziendali, tassi di interesse, inflazione, livello di disoccupazione ed eventi geopolitici. Per le azioni sono importanti i profitti delle aziende, i dividendi, la concorrenza, mentre per le valute — gli indicatori economici dei paesi e le azioni delle banche centrali. Tale analisi è spesso utilizzata dagli investitori che mantengono posizioni per settimane, mesi o addirittura anni.',
+    psychology_h2: 'Psicologia del Trading',
+    psychology_p: 'La psicologia nel trading gioca un ruolo decisivo. Anche possedendo competenze tecniche, un trader può subire perdite a causa delle emozioni — paura, avidità, impazienza. Spesso i principianti effettuano operazioni impulsive, escono troppo presto o mantengono posizioni in perdita. I principi fondamentali della stabilità psicologica: mantenere la disciplina, utilizzare un piano di trading, accettare le perdite come parte del processo. Tenere un diario delle operazioni aiuta a analizzare le proprie azioni ed emozioni. Anche importante evitare la sindrome dell\'overtrading — quando un trader apre troppe operazioni senza ragioni valide.',
+    capital_management_h2: 'Gestione del Capitale',
+    capital_management_p: 'Il capitale è il tuo strumento di lavoro. La regola principale del money management: non rischiare più dell\'1-2% del deposito in una singola operazione. Questo ti permette di sopportare una serie di operazioni in perdita senza esaurire completamente il conto. L\'uso dello stop-loss è obbligatorio. Non dovresti mediare le posizioni in perdita o aumentare la dimensione del lotto nella speranza di «recuperare». È anche importante mantenere un rapporto rischio/rendimento — preferibilmente almeno 1:2. La dimensione ottimale della posizione viene calcolata in base al deposito, allo stop-loss e al rischio consentito.',
+    strategies_h2: 'Tipi di Strategie',
+    strategies_p: 'Esistono molte strategie di trading, adattate a diversi stili e intervalli di tempo:',
+    strategies_list: [
+      '<strong>Scalping</strong> — apertura e chiusura di operazioni in pochi minuti, richiede alta concentrazione e reazione rapida.',
+      '<strong>Day Trading</strong> — trading intraday, le posizioni vengono chiuse entro la fine della giornata.',
+      '<strong>Swing Trading</strong> — mantenimento delle operazioni da pochi giorni a settimane, basato sull\'analisi tecnica e sulle notizie.',
+      '<strong>Investimento</strong> — mantenimento a lungo termine delle posizioni, basato sull\'analisi fondamentale.'
+    ],
+    strategies_p2: 'La scelta della strategia dipende dal tuo carattere, dal tempo e dall\'esperienza. L\'importante è attenersi a una strategia e non passare da un metodo all\'altro.',
+    indicators_h2: 'Indicatori nell\'Analisi Tecnica',
+    indicators_p: 'Gli indicatori aiutano i trader a prendere decisioni basate su dati statistici. I più popolari:',
+    indicators_list: [
+      '<strong>RSI (Relative Strength Index)</strong> — mostra condizioni di ipercomprato o ipervenduto di un asset. Valori superiori a 70 — ipercomprato, inferiori a 30 — ipervenduto.',
+      '<strong>MACD</strong> — indicatore di incrocio delle medie mobili, aiuta a trovare i momenti di ingresso e uscita dal mercato.',
+      '<strong>Bande di Bollinger</strong> — visualizzano la volatilità e i livelli di supporto/resistenza. L\'espansione delle bande significa un aumento della volatilità.'
+    ],
+    indicators_p2: 'Gli indicatori devono essere utilizzati in combinazione, non affidandosi solo a un segnale.',
+    common_mistakes_h2: 'Errori Comuni dei Principianti',
+    common_mistakes_p: 'Molti principianti commettono gli stessi errori, a causa dei quali perdono denaro:',
+    common_mistakes_list: [
+      'Mancanza di un piano di trading e disciplina.',
+      'Apertura di operazioni «a sensazione» senza analisi.',
+      'Trascurare lo stop-loss.',
+      'Tentativi di recuperare dopo una perdita.',
+      'Lotto troppo grande per una singola operazione.'
+    ],
+    common_mistakes_p2: 'Il consiglio principale: impara dagli errori degli altri e tieni un diario di trading per monitorare e correggere i tuoi errori.',
+    quiz_ready_h2: 'Test: Sei pronto per il trading?',
+    quiz_ready_p: 'Rispondi a qualche domanda per capire il tuo punto di partenza:',
+    quiz_ready_list: [
+      'Capisci la differenza tra analisi fondamentale e tecnica?',
+      'Sai come gestire i rischi e controllare le emozioni?',
+      'Hai un piano di trading e degli obiettivi?',
+      'Sei pronto a imparare e adattarti ogni giorno?'
+    ],
+    quiz_ready_p2: 'Se hai risposto «sì» alla maggior parte delle domande — sei sulla strada giusta. Se «no» — inizia con lo studio delle sezioni di base.',
+    interactive_quiz_h2: '🧠 Test Interattivo: Quanto sei pronto?',
+    quiz_q1: '1. Hai un piano di trading?',
+    quiz_q2: '2. Sai come funziona l\'RSI?',
+    quiz_q3: '3. Usi gli stop-loss nel trading?',
+    quiz_q4: '4. Quanta rischi per singola operazione?',
+    quiz_btn: 'Mostra risultato',
+    quiz_result_4: 'Sei eccellentemente preparato!',
+    quiz_result_2: 'Un buon inizio, ma c\'è ancora del lavoro da fare.',
+    quiz_result_0: 'Ti consigliamo di studiare di più prima di iniziare a fare trading.',
+    broker_choice_h2: 'Scelta del Broker e della Piattaforma',
+    broker_choice_p: 'È importante scegliere un broker affidabile con licenza, basse commissioni e una piattaforma conveniente (ad esempio, MetaTrader, TradingView, Binance).',
+    conclusion_h2: 'Conclusione',
+    conclusion_p: 'Il trading richiede conoscenza, pazienza e autocontrollo. Studia, allenati e sviluppati — e sarai in grado di agire con sicurezza sui mercati finanziari.',
+    gallery_h2: '📷 Galleria di Grafici',
+    tradingview_chart_h2: '📈 Grafico Live TradingView',
+    tradingview_chart_p: 'Qui sotto puoi osservare un grafico in tempo reale di valute, criptovalute o azioni.',
+    subscribe_h2: '📬 Iscriviti alle Notizie',
+    subscribe_p: 'Lascia la tua email per ricevere consigli di trading e nuove lezioni:',
+    subscribe_email_placeholder: 'La tua email',
+    subscribe_btn: 'Iscriviti',
+    footer: '© 2025 Trading Elegante. Tutti i diritti riservati.',
+    music_pause: '⏸️ Musica',
+    music_play: '▶️ Musica'
+  }
+};
+
+// Переключение языка
+const switcher = document.getElementById('languageSwitcher');
+const sections = document.querySelectorAll('main section');
+const header = document.getElementById('header');
+const btnMusic = document.getElementById('musicBtn');
+const emailInput = document.getElementById('email');
+const subscribeForm = document.getElementById('subscribe-form');
+const subscribeMsg = document.getElementById('subscribeMessage');
+const bgMusic = document.getElementById('bgMusic');
+
+function translatePage(lang) {
+  const t = translations[lang];
+  if (!t) return;
+
+  header.innerText = t.header;
+  btnMusic.innerText = bgMusic.paused ? t.music_play : t.music_pause;
+  document.querySelector('footer').innerText = t.footer;
+
+  sections.forEach(section => {
+    const id = section.dataset.section;
+    const h2 = section.querySelector('h2');
+    if (h2 && t[`${id}_h2`]) h2.innerText = t[`${id}_h2`];
+
+    // Текстовые параграфы
+    const ps = section.querySelectorAll('p');
+    if (ps.length > 0) {
+      if (t[`${id}_p`]) ps[0].innerText = t[`${id}_p`];
+      if (ps.length > 1 && t[`${id}_p2`]) ps[ps.length - 1].innerText = t[`${id}_p2`];
+    }
+
+    // Списки
+    if (t[`${id}_list`]) {
+      const ul = section.querySelector('ul');
+      const ol = section.querySelector('ol');
+      if (ul) {
+        ul.innerHTML = t[`${id}_list`].map(item => `<li>${item}</li>`).join('');
+      }
+      if (ol) {
+        ol.innerHTML = t[`${id}_list`].map(item => `<li>${item}</li>`).join('');
+      }
+    }
+  });
+
+  // Обновление вопросов квиза
+  const quiz = document.getElementById('quiz-form');
+  if (quiz) {
+    quiz.querySelector('p:nth-of-type(1)').innerText = t.quiz_q1;
+    quiz.querySelector('p:nth-of-type(2)').innerText = t.quiz_q2;
+    quiz.querySelector('p:nth-of-type(3)').innerText = t.quiz_q3;
+    quiz.querySelector('p:nth-of-type(4)').innerText = t.quiz_q4;
+    quiz.querySelector('button[type="submit"]').innerText = t.quiz_btn;
+  }
+
+  // Обновление формы подписки
+  if (subscribeForm) {
+    subscribeForm.querySelector('p').innerText = t.subscribe_p;
+    emailInput.placeholder = t.subscribe_email_placeholder;
+    subscribeForm.querySelector('button').innerText = t.subscribe_btn;
+  }
+
+  // Очистка сообщений
+  document.getElementById('quiz-result').innerText = '';
+  subscribeMsg.innerText = '';
+}
+
+// Обработчик смены языка
+switcher.addEventListener('change', () => {
+  translatePage(switcher.value);
+});
+
+// Инициализация
+document.addEventListener('DOMContentLoaded', () => {
+  translatePage(switcher.value);
+  // Попытка автоматического воспроизведения музыки
+  bgMusic.play().catch(() => {
+    // Браузеры могут блокировать автозапуск
+  });
+});
+
+// Переключение музыки
+btnMusic.addEventListener('click', () => {
+  if (bgMusic.paused) {
+    bgMusic.play();
+    btnMusic.innerText = translations[switcher.value].music_pause;
+  } else {
+    bgMusic.pause();
+    btnMusic.innerText = translations[switcher.value].music_play;
+  }
+});
+
+// Вариант подсчета результата квиза
+function calculateScore(e) {
+  e.preventDefault();
+  let score = 0;
+  for (let i = 1; i <= 4; i++) {
+    const answer = document.querySelector(`input[name=q${i}]:checked`);
+    if (answer) score += parseInt(answer.value);
+  }
+  const lang = switcher.value;
+  let resultText = '';
+  if (score === 4) {
+    resultText = translations[lang].quiz_result_4;
+  } else if (score >= 2) {
+    resultText = translations[lang].quiz_result_2;
+  } else {
+    resultText = translations[lang].quiz_result_0;
+  }
+  document.getElementById('quiz-result').innerText = resultText;
+  return false;
+}
+
+// Обработка подписки
+subscribeForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const formData = new FormData(subscribeForm);
+  try {
+    const response = await fetch(subscribeForm.action, {
+      method: subscribeForm.method,
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+    if (response.ok) {
+      subscribeMsg.innerText = translations[switcher.value].subscribe_success || 'Вы успешно подписались!';
+      subscribeForm.reset();
+    } else {
+      const err = await response.json();
+      subscribeMsg.innerText = translations[switcher.value].subscribe_error || 'Произошла ошибка при подписке.';
+    }
+  } catch {
+    subscribeMsg.innerText = translations[switcher.value].subscribe_error || 'Произошла ошибка сети.';
+  }
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script>
+particlesJS("particles-js", {
+  "particles": {
+    "number": {
+      "value": 70,
+      "density": {
+        "enable": true,
+        "value_area": 800
+      }
+    },
+    "color": { "value": "#FFD700" },
+    "shape": {
+      "type": "circle"
+    },
+    "opacity": {
+      "value": 0.3,
+      "random": true
+    },
+    "size": {
+      "value": 4,
+      "random": true
+    },
+    "line_linked": {
+      "enable": true,
+      "distance": 150,
+      "color": "#FFD700",
+      "opacity": 0.2,
+      "width": 1
+    },
+    "move": {
+      "enable": true,
+      "speed": 1.6
+    }
+  },
+  "interactivity": {
+    "events": {
+      "onhover": {
+        "enable": true,
+        "mode": "repulse"
+      }
+    }
+  },
+  "retina_detect": true
+});
+</script>
+
+</body>
+</html>
